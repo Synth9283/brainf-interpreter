@@ -1,6 +1,6 @@
 # brainf-interpreter
-A brainf interpreter made in C
-## Features:
+A brainf interpreter made in C with dynamic memory allocation
+## Features
 - Dynamic memory allocation
     - Implemented by using linked lists utilizing the heap rather than a fixed size in the stack
     - This means that the only limit is the size of your memory!
@@ -8,12 +8,12 @@ A brainf interpreter made in C
     - Easy to compile and install the interpreter
 - Easy to compile
     - It does not depend on any external dependencies. All you need is the standard library!
-## Requirements:
+## Requirements
 - C compiler
 - Standard Libraries
 - git
 ## Usage
-- Hello World!:
+- Hello World!
 ```
 bf "++++++++++[>+>+++>+++++++>++++++++++<<<<-]>>>++.>+.+++++++..+++.<<++.>+++++++++++++++.>.+++.------.--------.<<+."
 ```
