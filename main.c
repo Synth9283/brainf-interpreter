@@ -19,13 +19,15 @@ int main(int argc, char **argv) {
     currentNode->next = NULL;
     char *currentChar = argv[1];
 
-    if (loopChars(&currentNode, currentChar)) return 0;
+    if (loopChars(&currentNode, currentChar)) { 
+        puts("");
+        return 0;
+    }
     else return 1;
 }
 
 char *loopChars(node_t **currentNode, char *currentChar) {
-    char *tracerChar = currentChar++;
-    int i = 0;
+    char *tracerChar = currentChar-1;
     do {
         switch (*currentChar) {
             case '+': (*currentNode)->value++; break;
@@ -33,7 +35,7 @@ char *loopChars(node_t **currentNode, char *currentChar) {
             case '>': *currentNode = moveNext(currentNode); break;
             case '<': *currentNode = movePrev(currentNode); break;
             case '[':
-                currentChar = loopChars(currentNode, currentChar++);
+                currentChar = loopChars(currentNode, ++currentChar);
                 break;
             case ']':
                 if ((*currentNode)->value) currentChar = tracerChar;
@@ -44,17 +46,13 @@ char *loopChars(node_t **currentNode, char *currentChar) {
             default: return currentChar;
         }
 
-        i++;
         currentChar++;
-    } while ((*currentNode)->value);
+    } while ((*(currentChar-1)=='>' || *(currentChar-1)=='<' || *(currentChar-1)==']')?1:(*currentNode)->value);
 
-    printf("> Addr: %p, Val: %d\n", *currentNode, (*currentNode)->value);
-    puts("");
-    return currentChar;
+    return &*currentChar;
 }
 
 node_t *moveNext(node_t **currentNode) {
-    // printf("> Addr: %p, Val: %d\n", *currentNode, (*currentNode)->value);
     if ((*currentNode)->prev) return (node_t*)(*currentNode)->prev;
     else {
         node_t *newNode = malloc(sizeof(node_t));
@@ -65,7 +63,6 @@ node_t *moveNext(node_t **currentNode) {
 }
 
 node_t *movePrev(node_t **currentNode) {
-    // printf("< Addr: %p, Val: %d\n", *currentNode, (*currentNode)->value);
     if ((*currentNode)->next) return (node_t*)(*currentNode)->next;
     else return *currentNode;
 }
