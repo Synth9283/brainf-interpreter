@@ -25,7 +25,8 @@ int main(int argc, char **argv) {
 
 char *loopChars(node_t **currentNode, char *currentChar) {
     char *tracerChar = currentChar++;
-    for (int i=0; *currentChar; i++, currentChar++) {
+    int i = 0;
+    do {
         switch (*currentChar) {
             case '+': (*currentNode)->value++; break;
             case '-': (*currentNode)->value--; break;
@@ -42,7 +43,10 @@ char *loopChars(node_t **currentNode, char *currentChar) {
             case '.': putchar((*currentNode)->value); break;
             default: return currentChar;
         }
-    }
+
+        i++;
+        currentChar++;
+    } while ((*currentNode)->value);
 
     printf("> Addr: %p, Val: %d\n", *currentNode, (*currentNode)->value);
     puts("");
